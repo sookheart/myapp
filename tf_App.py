@@ -9,14 +9,18 @@ from PIL import Image
 import tensorflow as tf
 from tensorflow import keras
 
-# ── 한글 폰트 설정 (koreanize_matplotlib 대신 직접 지정) ──
-# Windows 환경: 맑은고딕 사용
-font_path = "C:/Windows/Fonts/malgun.ttf"
-if os.path.exists(font_path):
-    font_manager.fontManager.addfont(font_path)
+# ── 한글 폰트 설정 ──
+# Windows: 맑은고딕 / Streamlit Cloud(Linux): NanumGothic
+font_path_win   = "C:/Windows/Fonts/malgun.ttf"
+font_path_linux = "/usr/share/fonts/truetype/nanum/NanumGothic.ttf"
+ 
+if os.path.exists(font_path_win):
+    font_manager.fontManager.addfont(font_path_win)
     matplotlib.rc('font', family='Malgun Gothic')
+elif os.path.exists(font_path_linux):
+    font_manager.fontManager.addfont(font_path_linux)
+    matplotlib.rc('font', family='NanumGothic')
 else:
-    # Colab/Linux 환경 폴백
     matplotlib.rc('font', family='DejaVu Sans')
 matplotlib.rcParams['axes.unicode_minus'] = False  # 마이너스 기호 깨짐 방지
 
